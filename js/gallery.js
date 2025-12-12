@@ -1,3 +1,5 @@
+
+
 const images = [
   {
     preview:
@@ -84,16 +86,25 @@ const list = images
   .join("");
 
 gallery.insertAdjacentHTML("beforeend", list);
+gallery.addEventListener("click", onImgClick);
 
 function onImgClick(event) {
   event.preventDefault();
 
-  const isImage = event.target.hasAttribute("data-source");
+  const isImage = event.target.classList.contains("gallery-image");
   if (!isImage) {
     return;
   }
-
-  console.log(event.target.getAttribute("data-source"));
+ 
+  const original = event.target.dataset.source;
+  const modal = basicLightbox.create(
+    `
+  <img src=${original} width="800" height="600">
+`
+  );
+  modal.show();
 }
 
-gallery.addEventListener("click", onImgClick);
+
+
+
